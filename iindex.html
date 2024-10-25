@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المتجر</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>نظام إدارة المتجر</h1>
+
+        <!-- اختيار نوع المستخدم -->
+        <div id="userTypeSection">
+            <h2>اختيار نوع المستخدم</h2>
+            <button onclick="setUserType('employee')">موظف</button>
+            <button onclick="setUserType('admin')">أدمن</button>
+        </div>
+
+        <!-- تسجيل الدخول للأدمن -->
+        <div id="loginSection" style="display: none;">
+            <h2>تسجيل الدخول للأدمن</h2>
+            <input type="password" id="adminPassword" placeholder="كلمة المرور">
+            <button onclick="login()">تسجيل الدخول</button>
+            <p id="loginError" class="error"></p>
+        </div>
+
+        <!-- جزء الموظف (إنشاء الفاتورة) -->
+        <div id="employeeSection" style="display: none;">
+            <h2>إدارة الفواتير (الموظف)</h2>
+            <input type="text" id="invoiceProduct" placeholder="اسم المنتج">
+            <input type="number" id="invoiceQuantity" placeholder="الكمية">
+            <button onclick="addToInvoice()">إضافة للفاتورة</button>
+            <div class="invoice-list">
+                <h3>الفاتورة الحالية</h3>
+                <ul id="invoiceItems"></ul>
+                <p id="totalPrice">الإجمالي: 0 دينار</p>
+                <button onclick="finalizeInvoice()">حفظ الفاتورة</button>
+                <button onclick="clearInvoice()">إلغاء الفاتورة</button>
+                <button onclick="printInvoice()">طباعة الفاتورة</button>
+                <h3>مراجعة الفواتير أو التبديل</h3>
+                <select id="invoiceSelect">
+                    <option value="">اختر الفاتورة</option>
+                </select>
+                <button onclick="reviewInvoice()">مراجعة الفاتورة</button>
+                <div id="reviewSection" style="display: none;">
+                    <h4>تفاصيل الفاتورة</h4>
+                    <ul id="reviewInvoiceDetails"></ul>
+                    <input type="number" id="returnQuantity" placeholder="كمية الإرجاع">
+                    <button onclick="processReturn()">إرجاع المنتج</button>
+                    <p id="returnMessage" class="success"></p>
+                </div>
+            </div>
+            </div>
+            <!-- رسالة تأكيد نجاح إضافة الفاتورة -->
+<div id="successMessage" style="color: green; display: none;">
+    ✔️ تم إضافة الفاتورة بنجاح
+</div>
+
+        </div>
+
+        <!-- جزء الأدمن (إدارة المتجر) -->
+        <div id="adminSection" style="display: none;">
+            <h2>إدارة المتجر (الأدمن)</h2>
+
+            <!-- تغيير كلمة المرور -->
+            <div>
+                <h3>تغيير كلمة المرور</h3>
+                <input type="password" id="newPassword" placeholder="كلمة المرور الجديدة">
+                <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور الجديدة">
+                <button onclick="changePassword()">تغيير كلمة المرور</button>
+                <p id="passwordMessage" class="success"></p>
+            </div>
+
+            <!-- إضافة المنتجات -->
+            <div>
+                <h3>إضافة منتج جديد</h3>
+                <input type="text" id="productName" placeholder="اسم المنتج">
+                <input type="number" id="productQuantity" placeholder="الكمية">
+                <input type="number" id="productPrice" placeholder="السعر">
+                <button onclick="addProduct()">إضافة المنتج</button>
+                <p id="productMessage" class="success"></p>
+            </div>
+
+            <!-- عرض الفواتير التي خرجت من الموظف -->
+            <div>
+                <h3>الفواتير التي تم إنشاؤها من الموظف</h3>
+                <ul id="invoiceHistory"></ul>
+            </div>
+
+            <!-- عرض المنتجات في المخزن -->
+            <div>
+                <h3>المخزن</h3>
+                <table id="productTable">
+                    <thead>
+                        <tr>
+                            <th>اسم المنتج</th>
+                            <th>الكمية</th>
+                            <th>السعر</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- سيتم إضافة المنتجات هنا -->
+                    </tbody>
+                </table>
+                <!-- قسم مراجعة الفواتير والتبديل (للأدمن فقط) -->
+                 <!-- قسم المرتجعات في واجهة الأدمن -->
+<div>
+    <h3>سجل المرتجعات</h3>
+    <table id="returnsTable">
+        <thead>
+            <tr>
+                <th>اسم المنتج</th>
+                <th>الكمية المرتجعة</th>
+                <th>السعر</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- سيتم إضافة بيانات المرتجعات هنا -->
+        </tbody>
+    </table>
+</div>
+<div>
+
+        <tbody>
+            <!-- سيتم إضافة الفواتير المحفوظة هنا -->
+        </tbody>
+    </table>
+    <button onclick="archiveInvoices()">حفظ الفواتير الحالية</button>
+</div>
+<!-- زر لبدء يوم جديد في واجهة الأدمن -->
+<div>
+    <h3>إدارة اليوم الجديد</h3>
+    <button onclick="startNewDay()">بدء يوم جديد</button>
+    <p id="newDayMessage" class="success"></p>
+</div>
+<!-- جدول عرض الفواتير المؤرشفة -->
+<div>
+    <h3>سجل الفواتير المؤرشفة</h3>
+    <table id="archivedInvoicesTable">
+        <thead>
+            <tr>
+                <th>اسم المنتج</th>
+                <th>الكمية</th>
+                <th>السعر الإجمالي</th>
+                <th>التاريخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- سيتم إضافة الفواتير المؤرشفة هنا -->
+        </tbody>
+    </table>
+</div>
+
+            </div>
+        </div>
+    </div>
+<!-- قسم عرض الفواتير المحفوظة (للأدمن) -->
+<div>
+   
+
+    <script src="script.js"></script>
+</body>
+</html>

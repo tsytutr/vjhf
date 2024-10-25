@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    direction: rtl;
+}
+
+.container {
+    width: 60%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: calc(33% - 22px);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+/* إضافة تنسيقات جديدة للفاتورة */
+.invoice-list {
+    background-color: #fafafa;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.invoice-list h3 {
+    margin: 0;
+    color: #333;
+}
+
+.invoice-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.invoice-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+#totalPrice {
+    font-weight: bold;
+    margin-top: 10px;
+}
